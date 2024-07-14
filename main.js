@@ -1,4 +1,12 @@
-import { setupCounter } from './lib/main.js'
+window.initDemo = function () {
+  console.log('i am inited');
 
+  let canvas = document.getElementById('game-surface');
+  let gl = canvas.getContext('webgl');
 
-setupCounter(document.querySelector('#counter'))
+  console.log(gl);
+
+  if(!gl) {
+    console.log('Your browser does not support WebGL');
+  }
+}
