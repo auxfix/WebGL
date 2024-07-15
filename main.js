@@ -37,4 +37,17 @@ window.initDemo = function () {
 
   gl.clearColor(0.75, 0.85, 0.8, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+
+  let vertexShader = gl.createShader(gl.VERTEX_SHADER);
+  let fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+
+  gl.shaderSource(vertexShader, vertexShaderText);
+  gl.shaderSource(fragmentShader, fragmentShaderText);
+
+  gl.compileShader(vertexShader);
+  if(!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)){
+    console.error('ERROR compiling vertex shader!', gl.getShaderInfoLog(vertexShader))
+  }
+
+  gl.compileShader(fragmentShader);
 }
