@@ -1,0 +1,17 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    margin-bottom: 2rem;
+    text-decoration: underline;
+}
+
+.navigation {
+    font-weight: 600;
+    font-size: x-large;
+}
+

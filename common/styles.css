@@ -1,0 +1,26 @@
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.scene {
+    margin-top: 3rem;
+}
+
+.info {
+    font-size: larger;
+    margin-top: 2.5rem;
+}
+
+.nav {
+    font-size: larger;
+    margin-top: 1rem;
+    border: 1px solid silver;
+    padding: 0.9rem;
+    border-radius: 1rem;
+    background-color: #BFD9CC;
+    text-decoration: none;
+    color: rgb(52, 52, 52);
+}
