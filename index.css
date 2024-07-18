@@ -1,17 +1,38 @@
-body {
+
+html, body {
+    height: 98%;
+}
+
+.container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    margin: 0 auto;
+    width: 60%;
+    height: 100%;
 }
 
 .header {
     margin-bottom: 2rem;
-    text-decoration: underline;
+    background-color: #BFD9CC;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
 }
 
 .navigation {
     font-weight: 600;
     font-size: x-large;
+}
+
+.links {
+    padding: 0;
+    list-style-type: none;
+    width: 100%;
+    text-align: center;
+    height: 100%;
+    border-left: 3px solid #BFD9CC;
+    border-right: 3px solid #BFD9CC;
 }
 
