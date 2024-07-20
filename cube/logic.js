@@ -1,3 +1,5 @@
+import { mat4 } from 'gl-matrix';
+
 let vertexShaderText = 
 [
 'precision mediump float;',
@@ -28,7 +30,7 @@ let fragmentShaderText =
 ].join('\n');
 
 
-window.initTriangleScene = function () {
+window.initCubeScene = function () {
   console.log('i am inited');
 
   let canvas = document.getElementById('game-surface');
@@ -113,6 +115,19 @@ window.initTriangleScene = function () {
 
   gl.enableVertexAttribArray(positionAttribLocation);
   gl.enableVertexAttribArray(colorAttribLocation);
+
+  let matWorldUniformLocation = gl.getUniformLocation(program, 'mWorld');
+  let matViewUniformLocation = gl.getUniformLocation(program, 'mView');
+  let matProjUniformLocation = gl.getUniformLocation(program, 'mProj');
+
+
+  let worldMatrix = new Float32Array(16);
+  let viewMatrix = new Float32Array(16);
+  let projMatrix = new Float32Array(16);
+
+  mat4.identity(worldMatrix);
+  mat4.identity(viewMatrix);
+  mat4.identity(projMatrix);
 
   //
   // Main loop
