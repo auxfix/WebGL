@@ -24,6 +24,13 @@ html, body {
 .navigation {
     font-weight: 600;
     font-size: x-large;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.navigation:hover {
+    text-decoration: underline;
 }
 
 .links {
