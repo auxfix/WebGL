@@ -128,7 +128,7 @@ window.initCubeScene = function () {
   let projMatrix = new Float32Array(16);
 
   mat4.identity(worldMatrix);
-  mat4.lookAt(viewMatrix, [0, 0, -5], [0, 0, 0], [0, 1, 0]);
+  mat4.lookAt(viewMatrix, [0, 0, -3], [0, 0, 0], [0, 1, 0]);
   mat4.perspective(projMatrix, glMatrix.toRadian(45), canvas.width / canvas.height, 1.0, 1000);
 
 
@@ -139,5 +139,20 @@ window.initCubeScene = function () {
   //
   // Main loop
   //
-  gl.drawArrays(gl.TRIANGLES, 0, 3);
+  let identityMatrix = new Float32Array(16);
+  mat4.identity(identityMatrix);
+
+  let angle = 0;
+  let loop = function() {
+    angle = performance.now() / 1000 / 6 * 2 * Math.PI;
+    mat4.rotate(worldMatrix, identityMatrix, angle, [0, 1, 0]);
+    gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+
+    gl.clearColor(0.75, 0.85, 0.8, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop); 
 }
