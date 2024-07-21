@@ -1,4 +1,4 @@
-import { mat4 } from 'gl-matrix';
+import { mat4, glMatrix } from 'gl-matrix';
 
 let vertexShaderText = 
 [
@@ -14,7 +14,7 @@ let vertexShaderText =
 'void main()',
 '{',
 ' fragColor = vertColor;',
-' gl_Position = mProj * mView * mWorld * vec4(vertPosition, 0.0, 1.0);',
+' gl_Position = mProj * mView * mWorld * vec4(vertPosition, 1.0);',
 '}'
 ].join('\n');
 
@@ -116,22 +116,28 @@ window.initCubeScene = function () {
   gl.enableVertexAttribArray(positionAttribLocation);
   gl.enableVertexAttribArray(colorAttribLocation);
 
+  
+  gl.useProgram(program);
+
   let matWorldUniformLocation = gl.getUniformLocation(program, 'mWorld');
   let matViewUniformLocation = gl.getUniformLocation(program, 'mView');
   let matProjUniformLocation = gl.getUniformLocation(program, 'mProj');
-
 
   let worldMatrix = new Float32Array(16);
   let viewMatrix = new Float32Array(16);
   let projMatrix = new Float32Array(16);
 
   mat4.identity(worldMatrix);
-  mat4.identity(viewMatrix);
-  mat4.identity(projMatrix);
+  mat4.lookAt(viewMatrix, [0, 0, -5], [0, 0, 0], [0, 1, 0]);
+  mat4.perspective(projMatrix, glMatrix.toRadian(45), canvas.width / canvas.height, 1.0, 1000);
+
+
+  gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+  gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);
+  gl.uniformMatrix4fv(matProjUniformLocation, gl.FALSE, projMatrix);
 
   //
   // Main loop
   //
-  gl.useProgram(program);
   gl.drawArrays(gl.TRIANGLES, 0, 3);
 }
