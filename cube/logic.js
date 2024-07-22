@@ -118,7 +118,7 @@ window.initCubeScene = function () {
     -1.0, -1.0, -1.0,     0.5, 0.5, 0.1,
     -1.0, -1.0, 1.0,      0.5, 0.5, 0.1,
     1.0, -1.0, 1.0,       0.5, 0.5, 0.1,
-    1.0, 1.0, 1.0,        0.5, 0.5, 0.1,
+    1.0, -1.0, -1.0,        0.5, 0.5, 0.1,
   ];
 
   let cubeIndices = [
@@ -147,9 +147,13 @@ window.initCubeScene = function () {
     22, 20, 23,
   ];
 
-  let triangleVertexBufferObject = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVerticies), gl.STATIC_DRAW);
+  let cubeVertexBufferObject = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexBufferObject);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(cubeVerticies), gl.STATIC_DRAW);
+
+  let cubeIndexBufferObject = gl.createBuffer();
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeIndexBufferObject);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeIndices), gl.STATIC_DRAW);
 
   let positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
   let colorAttribLocation = gl.getAttribLocation(program, 'vertColor');
@@ -187,7 +191,7 @@ window.initCubeScene = function () {
   let projMatrix = new Float32Array(16);
 
   mat4.identity(worldMatrix);
-  mat4.lookAt(viewMatrix, [0, 0, -3], [0, 0, 0], [0, 1, 0]);
+  mat4.lookAt(viewMatrix, [0, 0, -7], [0, 0, 0], [0, 1, 0]);
   mat4.perspective(projMatrix, glMatrix.toRadian(45), canvas.width / canvas.height, 1.0, 1000);
 
 
@@ -209,7 +213,7 @@ window.initCubeScene = function () {
 
     gl.clearColor(0.75, 0.85, 0.8, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.drawElements(gl.TRIANGLES, cubeIndices.length, gl.UNSIGNED_SHORT, 0);
 
     requestAnimationFrame(loop);
   }
